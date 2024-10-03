@@ -9,6 +9,19 @@ public class Doctor {
     String email;
     String phone;
     String CRM;
-    String speciality;
+    SpecialityEnum speciality;
     Address address;
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", CRM='" + CRM + '\'' +
+                ", speciality=" + speciality +
+                ", address=" + address +
+                '}';
+    }
 }

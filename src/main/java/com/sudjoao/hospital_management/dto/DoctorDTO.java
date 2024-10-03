@@ -2,6 +2,7 @@ package com.sudjoao.hospital_management.dto;
 
 import com.sudjoao.hospital_management.domain.Address;
 import com.sudjoao.hospital_management.domain.Doctor;
+import com.sudjoao.hospital_management.domain.SpecialityEnum;
 
 public record DoctorDTO(String name, String email, String phone, String CRM, String speciality, AddressDTO address) {
     public Doctor toDomain() {
@@ -10,7 +11,7 @@ public record DoctorDTO(String name, String email, String phone, String CRM, Str
                 .email(email)
                 .phone(phone)
                 .CRM(CRM)
-                .speciality(speciality)
+                .speciality(SpecialityEnum.getByName(speciality))
                 .address(address.toDomain())
                 .build();
     }
