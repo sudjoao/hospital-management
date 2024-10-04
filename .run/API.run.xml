@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="API" type="Application" factoryName="Application">
+    <option name="envFilePaths">
+      <option value="$PROJECT_DIR$/src/main/resources/.env" />
+    </option>
+    <option name="MAIN_CLASS_NAME" value="com.sudjoao.hospital_management.HospitalManagementApplication" />
+    <module name="hospital-management" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
