@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record DoctorDTO(
+public record DoctorInputDTO(
         @NotBlank
         String name,
         @NotBlank
@@ -25,7 +25,7 @@ public record DoctorDTO(
         String speciality,
         @Valid
         @NotNull
-        AddressDTO address
+        DoctorInputDTO.AddressInputDTO address
 ) {
     public Doctor toDomain() {
         return Doctor.builder()
@@ -38,7 +38,7 @@ public record DoctorDTO(
                 .build();
     }
 
-    public record AddressDTO(
+    public record AddressInputDTO(
             @NotBlank
             String street,
             String number,

@@ -1,10 +1,25 @@
 package com.sudjoao.hospital_management.domain;
 
 public enum SpecialityEnum {
-    ORTHOPEDICS,
-    CARDIOLOGY,
-    GYNECOLOGY,
-    DERMATOLOGY;
+    ORTHOPEDICS(0),
+    CARDIOLOGY(1),
+    GYNECOLOGY(2),
+    DERMATOLOGY(3);
+
+    final int id;
+
+    SpecialityEnum(int id) {
+        this.id = id;
+    }
+
+    public static SpecialityEnum getById(int id) {
+        for (SpecialityEnum speciality : SpecialityEnum.values()) {
+            if (speciality.id == id) {
+                return speciality;
+            }
+        }
+        throw new IllegalArgumentException("Invalid ID for SpecialityEnum: " + id);
+    }
 
     public static SpecialityEnum getByName(String name) {
         for (SpecialityEnum specialityEnum : SpecialityEnum.values()) {
@@ -13,5 +28,9 @@ public enum SpecialityEnum {
             }
         }
         throw new EnumConstantNotPresentException(SpecialityEnum.class, name);
+    }
+
+    public int getId() {
+        return id;
     }
 }

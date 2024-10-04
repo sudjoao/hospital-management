@@ -3,6 +3,7 @@ package com.sudjoao.hospital_management.domain;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +20,7 @@ public class Doctor {
     String email;
     String phone;
     String CRM;
+    @Enumerated(EnumType.STRING)
     SpecialityEnum speciality;
     @Embedded
     Address address;
