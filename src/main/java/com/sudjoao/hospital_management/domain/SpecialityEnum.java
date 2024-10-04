@@ -1,5 +1,8 @@
 package com.sudjoao.hospital_management.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum SpecialityEnum {
     ORTHOPEDICS(0),
     CARDIOLOGY(1),
@@ -30,7 +33,4 @@ public enum SpecialityEnum {
         throw new EnumConstantNotPresentException(SpecialityEnum.class, name);
     }
 
-    public int getId() {
-        return id;
-    }
 }

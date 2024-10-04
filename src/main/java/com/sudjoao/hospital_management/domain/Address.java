@@ -4,11 +4,13 @@ import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Embeddable
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 public class Address {
     String street;
     String number;

@@ -1,10 +1,8 @@
 package com.sudjoao.hospital_management.domain;
 
+import com.sudjoao.hospital_management.dto.DoctorUpdateInputDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "doctors")
@@ -12,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +23,11 @@ public class Doctor {
     SpecialityEnum speciality;
     @Embedded
     Address address;
+
+    public void updateFromDto(DoctorUpdateInputDTO doctorUpdateInputDTO) {
+        phone = doctorUpdateInputDTO.phone().orElse(phone);
+        name = doctorUpdateInputDTO.name().orElse(name);
+    }
 
     @Override
     public String toString() {
