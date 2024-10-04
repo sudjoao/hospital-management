@@ -6,11 +6,11 @@ import com.sudjoao.hospital_management.dto.DoctorOutputDTO;
 import com.sudjoao.hospital_management.repository.DoctorRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/doctors")
@@ -24,10 +24,10 @@ public class DoctorController {
     }
 
     @GetMapping
-    ResponseEntity<List<DoctorOutputDTO>> list() {
-        List<Doctor> doctors = doctorRepository.findAll();
+    ResponseEntity<Page<DoctorOutputDTO>> list(Pageable pageable) {
+        Page<Doctor> doctors = doctorRepository.findAll(pageable);
         System.out.println(doctors);
-        List<DoctorOutputDTO> output = doctors.stream().map(DoctorOutputDTO::fromDomain).toList();
+        Page<DoctorOutputDTO> output = doctors.map(DoctorOutputDTO::fromDomain);
         return new ResponseEntity<>(output, HttpStatusCode.valueOf(200));
     }
 }
