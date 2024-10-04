@@ -2,6 +2,7 @@ package com.sudjoao.hospital_management.controller;
 
 import com.sudjoao.hospital_management.dto.DoctorDTO;
 import com.sudjoao.hospital_management.repository.DoctorRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class DoctorController {
     DoctorRepository doctorRepository;
 
     @PostMapping
-    ResponseEntity<String> createDoctor(@RequestBody DoctorDTO doctorDTO) {
+    ResponseEntity<String> createDoctor(@RequestBody @Valid DoctorDTO doctorDTO) {
         return new ResponseEntity<>(doctorRepository.save(doctorDTO.toDomain()).toString(), HttpStatusCode.valueOf(201));
     }
 }
