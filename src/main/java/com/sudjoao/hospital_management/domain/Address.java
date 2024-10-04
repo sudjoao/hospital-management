@@ -1,7 +1,9 @@
 package com.sudjoao.hospital_management.domain;
 
+import jakarta.persistence.Embeddable;
 import lombok.Builder;
 
+@Embeddable
 @Builder
 public class Address {
     String street;
