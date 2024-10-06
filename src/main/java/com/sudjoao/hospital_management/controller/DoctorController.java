@@ -16,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/doctors")
 public class DoctorController {
@@ -41,16 +39,14 @@ public class DoctorController {
     @PatchMapping("/{id}")
     @Transactional
     ResponseEntity<DoctorFullInfoOutputDto> edit(@PathVariable int id, @RequestBody DoctorUpdateInputDTO doctorInputDTO) {
-        Optional<Doctor> doctor = doctorRepository.findById((long) id);
-        if (doctor.isEmpty())
-            return ResponseEntity.notFound().build();
-        doctor.get().updateFromDto(doctorInputDTO);
-        return ResponseEntity.ok(DoctorFullInfoOutputDto.fromDomain(doctor.get()));
+        Doctor doctor = doctorRepository.getReferenceById((long) id);
+        doctor.updateFromDto(doctorInputDTO);
+        return ResponseEntity.ok(DoctorFullInfoOutputDto.fromDomain(doctor));
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Doctor> getById(@PathVariable long id) {
-        Optional<Doctor> doctor = doctorRepository.findById(id);
-        return doctor.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    ResponseEntity<DoctorFullInfoOutputDto> getById(@PathVariable long id) {
+        Doctor doctor = doctorRepository.getReferenceById(id);
+        return ResponseEntity.ok(DoctorFullInfoOutputDto.fromDomain(doctor));
     }
 }
