@@ -1,4 +1,4 @@
-package com.sudjoao.hospital_management.dto;
+package com.sudjoao.hospital_management.dto.input;
 
 import com.sudjoao.hospital_management.domain.Doctor;
 import com.sudjoao.hospital_management.domain.SpecialityEnum;
@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record DoctorCreateInputDTO(
+public record DoctorCreateInput(
         @NotBlank
         String name,
         @NotBlank
@@ -24,7 +24,7 @@ public record DoctorCreateInputDTO(
         String speciality,
         @Valid
         @NotNull
-        AddressInputDTO address
+        AddressInput address
 ) {
     public Doctor toDomain() {
         return Doctor.builder()

@@ -1,8 +1,8 @@
-package com.sudjoao.hospital_management.dto;
+package com.sudjoao.hospital_management.dto.input;
 
 import com.sudjoao.hospital_management.domain.User;
 
-public record UserInputDTO(String username, String password) {
+public record UserInput(String username, String password) {
     public User toDomain() {
         return User.builder()
                 .username(username)

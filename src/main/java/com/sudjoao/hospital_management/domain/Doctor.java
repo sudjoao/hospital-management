@@ -1,6 +1,6 @@
 package com.sudjoao.hospital_management.domain;
 
-import com.sudjoao.hospital_management.dto.DoctorUpdateInputDTO;
+import com.sudjoao.hospital_management.dto.input.DoctorUpdateInput;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,9 +24,9 @@ public class Doctor {
     @Embedded
     Address address;
 
-    public void updateFromDto(DoctorUpdateInputDTO doctorUpdateInputDTO) {
-        phone = doctorUpdateInputDTO.phone().orElse(phone);
-        name = doctorUpdateInputDTO.name().orElse(name);
+    public void updateFromDto(DoctorUpdateInput doctorUpdateInput) {
+        phone = doctorUpdateInput.phone().orElse(phone);
+        name = doctorUpdateInput.name().orElse(name);
     }
 
     @Override

@@ -1,9 +1,9 @@
-package com.sudjoao.hospital_management.dto;
+package com.sudjoao.hospital_management.dto.input;
 
 import com.sudjoao.hospital_management.domain.Address;
 import jakarta.validation.constraints.NotBlank;
 
-public record AddressInputDTO(
+public record AddressInput(
         @NotBlank
         String street,
         String number,

@@ -1,10 +1,10 @@
 package com.sudjoao.hospital_management.controller;
 
 import com.sudjoao.hospital_management.domain.Doctor;
-import com.sudjoao.hospital_management.dto.DoctorCreateInputDTO;
-import com.sudjoao.hospital_management.dto.DoctorFullInfoOutputDto;
-import com.sudjoao.hospital_management.dto.DoctorOutputDTO;
-import com.sudjoao.hospital_management.dto.DoctorUpdateInputDTO;
+import com.sudjoao.hospital_management.dto.input.DoctorCreateInput;
+import com.sudjoao.hospital_management.dto.input.DoctorUpdateInput;
+import com.sudjoao.hospital_management.dto.output.DoctorFullInfoOutput;
+import com.sudjoao.hospital_management.dto.output.DoctorOutput;
 import com.sudjoao.hospital_management.repository.DoctorRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -23,30 +23,30 @@ public class DoctorController {
     DoctorRepository doctorRepository;
 
     @PostMapping
-    ResponseEntity<DoctorFullInfoOutputDto> create(@RequestBody @Valid DoctorCreateInputDTO doctorCreateInputDTO, UriComponentsBuilder uriComponentsBuilder) {
-        Doctor doctor = doctorRepository.save(doctorCreateInputDTO.toDomain());
+    ResponseEntity<DoctorFullInfoOutput> create(@RequestBody @Valid DoctorCreateInput doctorCreateInput, UriComponentsBuilder uriComponentsBuilder) {
+        Doctor doctor = doctorRepository.save(doctorCreateInput.toDomain());
         var uri = uriComponentsBuilder.path("/doctors/{id}").buildAndExpand(doctor.getId()).toUri();
-        return ResponseEntity.created(uri).body(DoctorFullInfoOutputDto.fromDomain(doctor));
+        return ResponseEntity.created(uri).body(DoctorFullInfoOutput.fromDomain(doctor));
     }
 
     @GetMapping
-    ResponseEntity<Page<DoctorOutputDTO>> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
+    ResponseEntity<Page<DoctorOutput>> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
         Page<Doctor> doctors = doctorRepository.findAll(pageable);
-        Page<DoctorOutputDTO> output = doctors.map(DoctorOutputDTO::fromDomain);
+        Page<DoctorOutput> output = doctors.map(DoctorOutput::fromDomain);
         return ResponseEntity.ok(output);
     }
 
     @PatchMapping("/{id}")
     @Transactional
-    ResponseEntity<DoctorFullInfoOutputDto> edit(@PathVariable int id, @RequestBody DoctorUpdateInputDTO doctorInputDTO) {
+    ResponseEntity<DoctorFullInfoOutput> edit(@PathVariable int id, @RequestBody DoctorUpdateInput doctorInputDTO) {
         Doctor doctor = doctorRepository.getReferenceById((long) id);
         doctor.updateFromDto(doctorInputDTO);
-        return ResponseEntity.ok(DoctorFullInfoOutputDto.fromDomain(doctor));
+        return ResponseEntity.ok(DoctorFullInfoOutput.fromDomain(doctor));
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<DoctorFullInfoOutputDto> getById(@PathVariable long id) {
+    ResponseEntity<DoctorFullInfoOutput> getById(@PathVariable long id) {
         Doctor doctor = doctorRepository.getReferenceById(id);
-        return ResponseEntity.ok(DoctorFullInfoOutputDto.fromDomain(doctor));
+        return ResponseEntity.ok(DoctorFullInfoOutput.fromDomain(doctor));
     }
 }
