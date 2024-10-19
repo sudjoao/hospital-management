@@ -1,7 +1,6 @@
-package com.sudjoao.hospital_management.dto.output;
+package com.sudjoao.hospital_management.dto.input;
 
 import com.sudjoao.hospital_management.domain.Patient;
-import com.sudjoao.hospital_management.dto.input.AddressInput;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 
@@ -21,6 +20,7 @@ public record PatientInput(
                 .CPF(CPF)
                 .email(email)
                 .address(address.toDomain())
+                .active(true)
                 .build();
     }
 }

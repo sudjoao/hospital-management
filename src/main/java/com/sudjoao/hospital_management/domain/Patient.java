@@ -21,4 +21,8 @@ public class Patient {
     private String CPF;
     private Address address;
     private Boolean active;
+
+    public void delete() {
+        active = false;
+    }
 }

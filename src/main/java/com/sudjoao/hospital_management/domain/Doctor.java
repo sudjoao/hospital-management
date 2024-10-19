@@ -21,12 +21,17 @@ public class Doctor {
     String CRM;
     @Enumerated(EnumType.STRING)
     SpecialityEnum speciality;
+    Boolean active;
     @Embedded
     Address address;
 
     public void updateFromDto(DoctorUpdateInput doctorUpdateInput) {
         phone = doctorUpdateInput.phone().orElse(phone);
         name = doctorUpdateInput.name().orElse(name);
+    }
+
+    public void delete() {
+        active = false;
     }
 
     @Override

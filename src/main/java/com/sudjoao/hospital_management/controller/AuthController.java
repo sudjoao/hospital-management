@@ -1,8 +1,8 @@
 package com.sudjoao.hospital_management.controller;
 
 import com.sudjoao.hospital_management.domain.User;
-import com.sudjoao.hospital_management.dto.input.SignOutput;
 import com.sudjoao.hospital_management.dto.input.UserInput;
+import com.sudjoao.hospital_management.dto.output.SignOutput;
 import com.sudjoao.hospital_management.repository.UserRepository;
 import com.sudjoao.hospital_management.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
