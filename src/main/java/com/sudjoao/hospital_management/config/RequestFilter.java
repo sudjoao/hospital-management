@@ -1,11 +1,14 @@
 package com.sudjoao.hospital_management.config;
 
+import com.sudjoao.hospital_management.repository.UserRepository;
 import com.sudjoao.hospital_management.services.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,11 +21,18 @@ public class RequestFilter extends OncePerRequestFilter {
     @Autowired
     TokenService tokenService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("Filter called");
         var token = getToken(request);
-        token.ifPresent(s -> System.out.println(tokenService.validateToken(s)));
+        if (token.isPresent()) {
+            var username = tokenService.validateToken(token.get());
+            var user = userRepository.findByUsername(username);
+            var auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
         filterChain.doFilter(request, response);
     }
 
