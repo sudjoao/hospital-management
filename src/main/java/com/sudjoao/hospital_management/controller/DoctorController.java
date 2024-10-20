@@ -49,4 +49,12 @@ public class DoctorController {
         Doctor doctor = doctorRepository.getReferenceById(id);
         return ResponseEntity.ok(DoctorFullInfoOutput.fromDomain(doctor));
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    ResponseEntity deleteDoctor(@PathVariable long id) {
+        Doctor doctor = doctorRepository.getReferenceById(id);
+        doctor.delete();
+        return ResponseEntity.noContent().build();
+    }
 }
